@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Tailwind output
+frontend/dist/output.css
+
+# PHP config
+.env
+
+# macOS specific files
+.DS_Store
