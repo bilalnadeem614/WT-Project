@@ -22,6 +22,18 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./dist/output.css">
+    <style>
+        .bookmark-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .bookmark-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
     <title><?php echo $title; ?></title>
 </head>
 
@@ -36,7 +48,9 @@ if (isset($_GET['id'])) {
                         <?php
                         // Fetch full post details
                         $sql = "SELECT post.post_id, post.title, post.description, post.post_date, post.author,
-                                category.category_name, user.username, post.category, post.post_img 
+                                category.category_name, user.username, post.category, post.post_img,
+                                (SELECT COUNT(*) FROM saved_posts WHERE saved_posts.post_id = post.post_id) AS save_count,
+                                (SELECT COUNT(*) FROM saved_posts WHERE saved_posts.post_id = post.post_id AND saved_posts.user_id = {$_SESSION['user_id']}) AS is_saved
                                 FROM post
                                 LEFT JOIN category ON post.category = category.category_id
                                 LEFT JOIN user ON post.author = user.user_id
@@ -46,7 +60,7 @@ if (isset($_GET['id'])) {
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
-                                <div class="post-content single-post bg-white shadow-md rounded-lg overflow-hidden mb-8">
+                                <div class="post-content single-post bg-white shadow-md rounded-lg overflow-hidden mb-8 relative">
                                     <h3 class="ml-4 text-2xl sm:text-3xl font-bold mt-4 mb-4"><?php echo $row['title']; ?></h3>
                                     <div class="ml-4 post-information text-sm text-gray-600 mb-4">
                                         <span class="mr-4">
@@ -65,6 +79,28 @@ if (isset($_GET['id'])) {
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                             <?php echo $row['post_date']; ?>
                                         </span>
+                                    </div>
+
+                                    <div class="absolute top-4 right-4 text-center">
+                                        <?php if (isset($_SESSION['user_id'])) { ?>
+                                            <form action="toggle_save_post.php" method="POST">
+                                                <input type="hidden" name="post_id" value="<?php echo $row['post_id']; ?>">
+                                                <button type="submit" class="bookmark-button">
+                                                    <?php if ($row['is_saved']) { ?>
+                                                        <!-- Bookmarked Icon -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
+                                                        </svg>
+                                                    <?php } else { ?>
+                                                        <!-- Bookmark Icon -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
+                                                        </svg>
+                                                    <?php } ?>
+                                                </button>
+                                            </form>
+                                        <?php } ?>
+                                        <p><?php echo $row['save_count']; ?></p>
                                     </div>
 
                                     <div class="image-container mb-4">
