@@ -27,9 +27,9 @@ session_start();
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             if ($row['logo'] == "") {
-                                echo '<a href="index.php" class="text-2xl font-bold">Logo</a>';
+                                echo '<a href="http://localhost:8000/index.php" target="_blank" class="text-2xl font-bold">Logo</a>';
                             } else {
-                                echo '<a href="index.php" id="logo"><img src="./imgs/logo.png" alt="Logo" class="h-10"></a>';
+                                echo '<a href="http://localhost:8000/index.php" target="_blank" id="logo"><img src="./imgs/logo.png" alt="Logo" class="h-10"></a>';
                             }
                         }
                     }
@@ -48,7 +48,7 @@ session_start();
 
                         // Dropdown Menu
                         echo '<div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">';
-                        echo '<a href="./frontend/index.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">See Blog</a>';
+                        echo '<a href="http://localhost:8000/index.php" target="_blank" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">See Blog</a>';
                         echo '<a href="logout.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>';
                         echo '</div>';
                         echo '</div>';
@@ -67,6 +67,7 @@ session_start();
             <div class="flex justify-center">
                 <ul class="admin-menu flex space-x-6 text-white py-3 list-none">
                     <li><a href="post.php" class="px-4 hover:text-blue-400">Post</a></li>
+                    <li><a href="bookmark.php" class="px-4 hover:text-blue-400">Bookmarks</a></li>
                     <?php if ($_SESSION["user_role"] == '1') { ?>
                         <li><a href="category.php" class="px-4 hover:text-blue-400">Category</a></li>
                         <li><a href="users.php" class="px-4 hover:text-blue-400">Users</a></li>

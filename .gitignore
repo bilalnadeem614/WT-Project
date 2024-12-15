@@ -9,3 +9,5 @@ frontend/dist/output.css
 
 # macOS specific files
 .DS_Store
+
+Temp

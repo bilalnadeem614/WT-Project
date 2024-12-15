@@ -27,7 +27,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['post_id'])) {
         $stmt->execute();
     }
 
-    // header("Location: index.php");
+    header("Location: index.php");
 } else {
     header("Location: login.php");
 }

@@ -43,7 +43,7 @@ if (isset($_SESSION["username"])) {
                     if (isset($_POST['login'])) {
                         include "config.php";
                         if (empty($_POST['username']) || empty($_POST['password'])) {
-                            echo '<div class="alert alert-danger bg-red-500 text-white text-center p-4 mt-4 rounded">All Fields must be entered.</div>';
+                            echo '<div class="bg-red-500 text-white text-center p-4 mt-4 rounded">All Fields must be entered.</div>';
                             die();
                         } else {
                             $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -63,7 +63,7 @@ if (isset($_SESSION["username"])) {
                                     header("Location: {$hostname}/users/post.php");
                                 }
                             } else {
-                                echo '<div class="alert alert-danger bg-red-500 text-white text-center p-4 mt-4 rounded">Username and Password are not matched.</div>';
+                                echo '<div class="bg-red-500 text-white text-center p-4 mt-4 rounded">Username and Password are not matched.</div>';
                             }
                         }
                     }
