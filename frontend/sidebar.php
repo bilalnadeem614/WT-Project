@@ -64,7 +64,53 @@
             ?>
         </div>
         <!-- /recent posts box -->
+
+        <!-- Newsletter Subscription Box -->
+        <div class="newsletter-container shadow-md hover:shadow-lg mt-8">
+            <h4 class="text-xl font-semibold mb-4 ml-2">Subscribe to Our Newsletter</h4>
+            <form action="newsletter.php" method="POST" class="p-4">
+                <input type="email" name="subscriber_email" placeholder="Enter your email" required
+                    class="form-input w-full p-2 border border-gray-300 rounded mb-2">
+                <button type="submit" class="bg-blue-600 text-white w-full p-2 rounded hover:bg-blue-700 transition">
+                    Subscribe
+                </button>
+            </form>
+
+            <!-- Message -->
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo "<div id='message-box' class='bg-green-100 text-green-700 p-3 rounded mb-4'>{$_SESSION['msg']}</div>";
+                unset($_SESSION['msg']);
+            }
+            ?>
+
+
+        </div>
+
     </div>
+
+    <script>
+        // Wait for the DOM to fully load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Target the message box
+            const messageBox = document.getElementById("message-box");
+
+            // Check if the message box exists
+            if (messageBox) {
+                // Set a timeout to hide the message after 3-4 seconds
+                setTimeout(function() {
+                    messageBox.style.transition = "opacity 0.5s ease";
+                    messageBox.style.opacity = "0";
+
+                    // Remove the message box from the DOM after fading out
+                    setTimeout(function() {
+                        messageBox.remove();
+                    }, 500); // Delay matches the transition duration
+                }, 3000); // 3000ms = 3 seconds
+            }
+        });
+    </script>
+
 
 </body>
 

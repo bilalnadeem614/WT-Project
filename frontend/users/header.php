@@ -71,6 +71,8 @@ session_start();
                     <?php if ($_SESSION["user_role"] == '1') { ?>
                         <li><a href="category.php" class="px-4 hover:text-blue-400">Category</a></li>
                         <li><a href="users.php" class="px-4 hover:text-blue-400">Users</a></li>
+                        <li><a href="newsletterlist.php" class="px-4 hover:text-blue-400">Subscribers</a></li>
+                        <li><a href="views.php" class="px-4 hover:text-blue-400">Stats</a></li>
                         <li><a href="settings.php" class="px-4 hover:text-blue-400">Settings</a></li>
                     <?php } ?>
                 </ul>

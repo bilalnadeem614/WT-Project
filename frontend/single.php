@@ -1,8 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- <?php
+        include "./config.php";
+
+        if (isset($_GET['id'])) {
+            $post_id = mysqli_real_escape_string($conn, $_GET['id']);
+
+            // Increment view count
+            $update_view_sql = "UPDATE post SET views = views + 1 WHERE post_id = {$post_id}";
+            mysqli_query($conn, $update_view_sql);
+        }
+
+        $title = '';
+        if (isset($_GET['id'])) {
+            $post_id = $_GET['id'];
+            $sql = "SELECT post.title FROM post WHERE post.post_id = {$post_id}";
+            $result = mysqli_query($conn, $sql) or die("Query Failed.");
+
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $title = $row['title'];
+            } else {
+                $title = 'Post Not Found';
+            }
+        }
+        ?> -->
+
 <?php
 include "./config.php";
+
+if (isset($_GET['id'])) {
+    $post_id = mysqli_real_escape_string($conn, $_GET['id']);
+
+    // First, verify that the post exists
+    $check_post_sql = "SELECT * FROM post WHERE post_id = {$post_id}";
+    $check_post_result = mysqli_query($conn, $check_post_sql);
+
+    if (mysqli_num_rows($check_post_result) > 0) {
+        // Post exists, increment view count
+        $update_view_sql = "UPDATE post SET views = views + 1 WHERE post_id = {$post_id}";
+        mysqli_query($conn, $update_view_sql);
+    }
+}
+
 $title = '';
 if (isset($_GET['id'])) {
     $post_id = $_GET['id'];
