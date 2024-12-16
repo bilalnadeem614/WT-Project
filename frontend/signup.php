@@ -5,16 +5,14 @@ if (isset($_POST['submit'])) {
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-    $role = 0;  // Normal user role
+    $role = 0;
 
-    // Check if username already exists
     $sql = "SELECT username FROM user WHERE username = '{$username}'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
         $error = "Username already exists. Please choose a different one.";
     } else {
-        // Insert new user into the database
         $sql1 = "INSERT INTO user (first_name, last_name, username, password, role)
                  VALUES ('{$fname}', '{$lname}', '{$username}', '{$password}', '{$role}')";
 

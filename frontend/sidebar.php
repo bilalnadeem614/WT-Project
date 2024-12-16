@@ -26,8 +26,6 @@
             <h4 class="text-xl font-semibold mt-1 mb-4 ml-2">Recent Posts</h4>
             <?php
             include "./config.php";
-
-            /* Calculate Offset Code */
             $limit = 3;
 
             $sql = "SELECT post.post_id, post.title, post.post_date,
@@ -90,23 +88,18 @@
     </div>
 
     <script>
-        // Wait for the DOM to fully load
         document.addEventListener("DOMContentLoaded", function() {
-            // Target the message box
             const messageBox = document.getElementById("message-box");
-
-            // Check if the message box exists
             if (messageBox) {
-                // Set a timeout to hide the message after 3-4 seconds
+                
                 setTimeout(function() {
                     messageBox.style.transition = "opacity 0.5s ease";
                     messageBox.style.opacity = "0";
 
-                    // Remove the message box from the DOM after fading out
                     setTimeout(function() {
                         messageBox.remove();
-                    }, 500); // Delay matches the transition duration
-                }, 3000); // 3000ms = 3 seconds
+                    }, 500);
+                }, 3000);
             }
         });
     </script>

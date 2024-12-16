@@ -55,12 +55,10 @@
                         $sql = "SELECT post.post_id, post.title, post.description, post.post_date, post.author,
                                 category.category_name, user.username, post.category, post.post_img,
                                 (SELECT COUNT(*) FROM saved_posts WHERE saved_posts.post_id = post.post_id) AS save_count, ";
-
-                        // Adjust the `is_saved` query based on login status
                         if (isset($_SESSION['user_id'])) {
                             $sql .= "(SELECT COUNT(*) FROM saved_posts WHERE saved_posts.post_id = post.post_id AND saved_posts.user_id = {$_SESSION['user_id']}) AS is_saved ";
                         } else {
-                            $sql .= "0 AS is_saved "; // Default value when no user is logged in
+                            $sql .= "0 AS is_saved ";
                         }
 
                         $sql .= "FROM post
